@@ -107,8 +107,7 @@ contract DynamicTick is BaseHook, BrevisApp {
         bytes calldata data
     ) external override onlyPoolManager returns (bytes4) {
         uint256 dynamicPercentage = abi.decode(data, (uint256));
-        if (dynamicPercentage <= 100) revert InvalidDynamicPercentage();
-
+      if (dynamicPrcentage > 100) revert InvalidDynamicPercentage();
         userLiquidity[sender] = LiquidityInfo({
             totalLiquidity: uint256(int256(params.liquidityDelta)),
             dynamicPercentage: dynamicPercentage,
